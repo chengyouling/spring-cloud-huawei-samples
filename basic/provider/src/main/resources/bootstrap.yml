@@ -10,11 +10,11 @@ spring:
     nacos:
       discovery:
         enabled: true
-        server-addr: http://127.0.0.1:8848
+        server-addr: ${NACOS_SERVER_ADDR:http://127.0.0.1:8848}
         service: ${spring.application.name}
       config:
         enabled: true
-        server-addr: http://127.0.0.1:8848
+        server-addr: ${NACOS_SERVER_ADDR:http://127.0.0.1:8848}
         file-extension: yaml
         shared-configs[0]:
           data-id: provider.yaml

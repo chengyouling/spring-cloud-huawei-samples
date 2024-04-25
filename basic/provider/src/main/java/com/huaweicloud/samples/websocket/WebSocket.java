@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-@ServerEndpoint("/webSocket")
+@ServerEndpoint(value = "/webSocket")
 public class WebSocket {
   private static final Logger LOGGER = LoggerFactory.getLogger(WebSocket.class);
 
@@ -26,7 +26,7 @@ public class WebSocket {
   public WebSocket() {
     Executors.newSingleThreadScheduledExecutor().scheduleWithFixedDelay(() -> {
       sendMessage("当前时间：" + System.currentTimeMillis());
-    }, 30000, 30000, TimeUnit.MILLISECONDS);
+    }, 10000, 10000, TimeUnit.MILLISECONDS);
   }
 
   @OnOpen

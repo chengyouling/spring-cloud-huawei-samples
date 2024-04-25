@@ -3,18 +3,18 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: consumer
-          uri: lb://basic-consumer
-          predicates:
-            - Path=/consumer/**,/benchmark/**
-          filters:
-            - StripPrefix=1
+#        - id: consumer
+#          uri: lb://basic-consumer
+#          predicates:
+#            - Path=/consumer/**,/benchmark/**
+#          filters:
+#            - StripPrefix=1
         - id: provider
-          uri: lb://basic-provider
+          uri: ws:lb://basic-provider
           predicates:
-            - Path=/provider/**
-          filters:
-            - StripPrefix=1
+            - Path=/webSocket/test/**
+#          filters:
+#            - StripPrefix=1
 
       httpclient:
         pool:
