@@ -15,11 +15,13 @@
   demo中提供了CSE(Servicecomb)与CSE(Nacos)注册、配置中心切换的改造实践，根据场景及业务需要平滑切换使用CSE(Servicecomb)或CSE(Nacos)注册、配置中心。
 
 * 前提条件
+
   [准备CSE(Servicecomb)运行环境](../CSE-ENV_CN.md)
 
   [准备CSE(Nacos)运行环境](../NACOS-ENV_CN.md)
 
 * 项目改造调整
+
   CSE(Servicecomb)与CSE(Nacos)间切换需调整pom依赖，根据spring boot、spring cloud版本三方依赖要求，调整业务三方件依赖；
   demo中以1.10.1-2020.0.x/1.10.1-2021.0.x版本使用CSE(Servicecomb)升级到1.11.7-2021.0.x版本使用CSE(Nacos)为例，介绍主要改造内容。
   
@@ -68,7 +70,8 @@
           <artifactId>spring-cloud-starter-huawei-nacos-gateway</artifactId>
       </dependency>
   4、配置文件调整
-      Servicecomb注册中心配置
+
+    Servicecomb注册中心配置
       
       spring:
         cloud:
@@ -101,7 +104,9 @@
               serverType: kie
               # 自定义配置，使用文本的key/value配置项作为yaml格式配置
               fileSource: governance.yaml,application.yaml
-      调整为：
+
+    调整为Nacos注册中心配置：
+
       spring:
         cloud:
           nacos:
@@ -136,15 +141,18 @@
       3、bootstrap.yml中注释‘Servicecomb 注册配置中心’相关配置，打开‘Nacos 注册配置中心’相关配置；
       4、执行mvn clean install进行正常打包
 * 启动 provider
-  进入目录 ${Project}/provider/target/
+  
+    进入目录 ${Project}/provider/target/
 
       java -jar migrator-provider-1.0-SNAPSHOT.jar
 * 启动 consumer
-  进入目录 ${Project}/consumer/target/
+  
+    进入目录 ${Project}/consumer/target/
 
       java -jar migrator-consumer-1.0-SNAPSHOT.jar
 * 启动 gateway
-  进入目录 ${Project}/gateway/target/
+  
+    进入目录 ${Project}/gateway/target/
 
       java -jar migrator-gateway-1.0-SNAPSHOT.jar
 
