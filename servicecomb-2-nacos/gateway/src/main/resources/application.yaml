@@ -1,0 +1,26 @@
+# 路由规则配置
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: consumer
+          uri: lb://migrator-consumer
+          predicates:
+            - Path=/consumer/**,/benchmark/**
+          filters:
+            - StripPrefix=1
+        - id: provider
+          uri: lb://migrator-provider
+          predicates:
+            - Path=/provider/**
+          filters:
+            - StripPrefix=1
+
+      httpclient:
+        pool:
+          maxConnections: 50
+          maxIdleTime: PT300S
+          maxLifeTime: PT600S
+          evictionInterval: PT600S
+          type: FIXED
+

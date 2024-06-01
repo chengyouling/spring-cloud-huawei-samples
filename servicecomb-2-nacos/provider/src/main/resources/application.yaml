@@ -1,0 +1,4 @@
+server:
+  tomcat:
+    maxKeepAliveRequests: -1
+    keepAliveTimeout: PT120S
