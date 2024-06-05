@@ -1,0 +1,24 @@
+server:
+  port: 9090
+
+# 路由规则配置
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: consumer
+          # 基于服务地址端口路由
+          uri: http://127.0.0.1:9092
+          # 基于负载均衡的路由
+#          uri: lb://basic-consumer
+          predicates:
+            - Path=/consumer/**,/benchmark/**
+          filters:
+            - StripPrefix=1
+        - id: provider
+#          uri: lb://basic-provider
+          uri: http://127.0.0.1:9094
+          predicates:
+            - Path=/provider/**
+          filters:
+            - StripPrefix=1
