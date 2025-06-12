@@ -1,0 +1,39 @@
+servicecomb:
+  matchGroup:
+    period-quickly-limit: |
+      matches:
+        - apiPath:
+            prefix: "/period/quickly-limit"
+    period-reduce-limit: |
+      matches:
+        - apiPath:
+            prefix: "/period/reduce-limit"
+    duration-not-limit: |
+      matches:
+        - apiPath:
+            prefix: "/timeout/not-limit"
+    service-name-limit: |
+      matches:
+        - apiPath:
+            prefix: "/serviceName/limit"
+          # /serviceName/limit接口根据参数选择调用limit-provider、not-limit-provider，仅调用limit-provider服务限流
+          serviceName: limit-consumer
+  rateLimiting:
+    period-quickly-limit: |
+      rate: 1
+      limitRefreshPeriod: 10000
+      timeoutDuration: 0
+    period-reduce-limit: |
+      rate: 1
+      # 快速刷新限流窗口令牌，降低限流触发
+      limitRefreshPeriod: 10
+      timeoutDuration: 0
+    duration-not-limit: |
+      rate: 1
+      limitRefreshPeriod: 5000
+      # 增加请求等待时间，给流量更多的容错空间，降低限流或者不触发限流
+      timeoutDuration: 15000
+    service-name-limit: |
+      rate: 1
+      limitRefreshPeriod: 10000
+      timeoutDuration: 0
